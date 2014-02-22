@@ -1,6 +1,7 @@
 package com.example.DrawingSheet;
 
 import android.content.Context;
+import com.example.Models.Constants;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -23,6 +24,8 @@ public class GameSheet extends SurfaceView implements SurfaceHolder.Callback
 	{
 		if (mThread != null)
 		{
+			Constants.mScreenHeight = height;
+			Constants.mScreenWidth = width;
 			mThread.setScreenHeight(height);
 			mThread.setScreenWidth(width);
 		}
