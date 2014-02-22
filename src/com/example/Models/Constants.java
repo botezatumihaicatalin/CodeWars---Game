@@ -6,4 +6,5 @@ package com.example.Models;
 public class Constants 
 {
     public static int ScreenWidth = 1 , ScreenHeight = 1;
+    public static float ScreenSpeed = 1;
 }

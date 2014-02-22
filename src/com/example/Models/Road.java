@@ -16,7 +16,7 @@ public class Road
 
 	private static final int SEGMENTS_NO = 80;
 	private static final int SEGMENT_DIST = 30;// px
-	private static final int SEGMENT_SIZE = 80;// px
+	private static final int SEGMENT_SIZE = 180;// px
 	public ArrayList<SegmentRoad> segments;
 	private static final int DISP = 30;
 	private static int OK = 0;
@@ -28,8 +28,10 @@ public class Road
 	{
 		segments = new ArrayList<SegmentRoad>();
 		mRoadPath = new Path();
-		mDrawingPaint = new Paint(Color.WHITE);
-		mSegmentPaint = new Paint(Color.BLACK);
+		mDrawingPaint = new Paint();
+		mDrawingPaint.setColor(Color.WHITE);
+		mSegmentPaint = new Paint();
+		mSegmentPaint.setColor(Color.BLACK);
 	}
 
 	public synchronized void init()
@@ -64,10 +66,10 @@ public class Road
 	{
 		for (int i = 0; i < segments.size(); i++)
 		{
-			segments.get(i).left.y++;
-			segments.get(i).right.y++;
+			segments.get(i).left.y+= Constants.ScreenSpeed;
+			segments.get(i).right.y+= Constants.ScreenSpeed;
 
-			if (segments.get(i).left.y > Constants.ScreenHeight + 100)
+			if (segments.get(i).left.y > Constants.ScreenHeight + 100 * Constants.ScreenSpeed)
 				segments.remove(i);
 		}
 
@@ -77,8 +79,8 @@ public class Road
 
 			int deviation = new Random().nextInt() % DISP;
 
-			seg.left.y = -50;
-			seg.right.y = -50;
+			seg.left.y = -50 * Constants.ScreenSpeed;
+			seg.right.y = -50 * Constants.ScreenSpeed;
 			seg.left.x = segments.get(0).left.x + deviation;
 
 			if (seg.left.x < 0)

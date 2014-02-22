@@ -29,7 +29,10 @@ public class GameSheet extends SurfaceView implements SurfaceHolder.Callback
 	@Override
 	public synchronized void surfaceCreated(SurfaceHolder arg0)
 	{
+		Constants.ScreenHeight = this.getHeight();
+		Constants.ScreenWidth = this.getWidth();
 		mThread = new GameThread(arg0 , mContext);
+		
 		mThread.start();
 	}
 
