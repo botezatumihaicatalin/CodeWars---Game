@@ -31,7 +31,7 @@ public class GameSheet extends SurfaceView implements SurfaceHolder.Callback
 	@Override
 	public synchronized void surfaceCreated(SurfaceHolder arg0)
 	{
-		mThread = new GameThread(arg0 , this.getWidth() , this.getHeight());
+		mThread = new GameThread(arg0 , mContext , this.getWidth() , this.getHeight());
 		mThread.start();
 	}
 
