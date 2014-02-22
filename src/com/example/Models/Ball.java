@@ -1,21 +1,31 @@
 package com.example.Models;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
 
+import com.example.game.R;
+
 public class Ball
 {
+	public float my_radius;
+	public Bitmap mBallImage;
+	public float speedX, speedY;
+	public PointF my_position;
+	private Paint mDrawingPaint;
 
-	public Ball()
+	public Ball(Context context)
 	{
 
-		my_radius = 5.0f;
+		my_radius = 20.0f;
 
 		// bmp image
-		my_image = "Your image here";
-
+		mBallImage = BitmapFactory.decodeResource(context.getResources(), R.drawable.ball);
+		mBallImage = Bitmap.createScaledBitmap(mBallImage, 20, 20, true);
+		mDrawingPaint = new Paint();
 		// getting display size
 		my_position = new PointF(0.0f, 0.0f);
 		speedX = 0.0f;
@@ -30,15 +40,8 @@ public class Ball
 
 	public void render(Canvas canvas)
 	{
-		Paint p = new Paint();
-		p.setColor(Color.YELLOW);
-		canvas.drawCircle(my_position.x, my_position.y, my_radius , p);
-
+		canvas.drawBitmap(mBallImage, my_position.x - 10, my_position.y - 10 , mDrawingPaint);		
 	}
 
-	public float my_radius;
-	public String my_image;
-	public float speedX, speedY;
-	public PointF my_position;
 
 }

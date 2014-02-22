@@ -12,30 +12,27 @@ import android.view.SurfaceHolder;
 
 import com.example.Models.Ball;
 import com.example.Models.Colisions;
+import com.example.Models.Constants;
 import com.example.Models.Road;
 
 public class GameThread extends Thread
 {
 	private final SurfaceHolder mHolder;
 	private boolean mIsRunning = true;
-	private int mScreenWidth, mScreenHeight;
 	private Ball mBall;
 	private Road mRoad;
 	private final Context mContext;
 	private final SensorManager mSensorManager;
 
-	public GameThread(SurfaceHolder surfaceHolder, Context context, int width,
-			int height)
+	public GameThread(SurfaceHolder surfaceHolder, Context context)
 	{
 		mHolder = surfaceHolder;
-		setScreenWidth(width);
-		setScreenHeight(height);
 		mRoad = new Road();
 		mRoad.init();
 
-		mBall = new Ball();
-		mBall.my_position.x = width / 2;
-		mBall.my_position.y = height / 2;
+		mBall = new Ball(context);
+		mBall.my_position.x = Constants.ScreenWidth / 2;
+		mBall.my_position.y = Constants.ScreenHeight / 2;
 		mContext = context;
 		mSensorManager = (SensorManager) mContext
 				.getSystemService(Context.SENSOR_SERVICE);
@@ -48,6 +45,7 @@ public class GameThread extends Thread
 	public void run()
 	{
 		mIsRunning = true;
+		Canvas canvas;
 		while (mIsRunning)
 		{
 			try
@@ -55,17 +53,15 @@ public class GameThread extends Thread
 
 				mBall.updatePosition();
 				mRoad.updateSegments();
-				Log.d("Game Testing", Colisions.colision(mBall, mRoad) + "");
+				Colisions.colision(mBall, mRoad);
 
-				Canvas canvas = mHolder.lockCanvas();
+				canvas = mHolder.lockCanvas();
 
 				// Do the drawing here
 
 				canvas.drawColor(Color.RED);
-				mBall.render(canvas);
-
 				mRoad.render(canvas);
-
+				mBall.render(canvas);
 				mHolder.unlockCanvasAndPost(canvas);
 				Thread.sleep(5);
 
@@ -105,25 +101,5 @@ public class GameThread extends Thread
 	public synchronized boolean getRunning()
 	{
 		return mIsRunning;
-	}
-
-	public synchronized int getScreenWidth()
-	{
-		return mScreenWidth;
-	}
-
-	public synchronized void setScreenWidth(int mScreenWidth)
-	{
-		this.mScreenWidth = mScreenWidth;
-	}
-
-	public synchronized int getScreenHeight()
-	{
-		return mScreenHeight;
-	}
-
-	public synchronized void setScreenHeight(int mScreenHeight)
-	{
-		this.mScreenHeight = mScreenHeight;
 	}
 }

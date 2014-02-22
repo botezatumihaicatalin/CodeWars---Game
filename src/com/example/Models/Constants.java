@@ -5,5 +5,5 @@ package com.example.Models;
  */
 public class Constants 
 {
-    public static int mScreenWidth = 1 , mScreenHeight = 1;
+    public static int ScreenWidth = 1 , ScreenHeight = 1;
 }
