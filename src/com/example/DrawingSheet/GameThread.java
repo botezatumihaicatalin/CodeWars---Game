@@ -2,6 +2,7 @@ package com.example.DrawingSheet;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -125,10 +126,21 @@ public class GameThread extends Thread
 				mOList.render(canvas);
 				mBall.render(canvas);
 				mCList.render(canvas);
-
-				canvas.drawText(mLife + "", Constants.ScreenWidth - 60,
-						Constants.ScreenHeight - 30, textPaint);
-
+				
+				if (mLife > 200)
+				{
+					textPaint.setColor(Color.BLACK);
+					textPaint.setTextSize(30);
+					canvas.drawText("Life " + mLife, Constants.ScreenWidth - 150,
+							Constants.ScreenHeight - 31, textPaint);
+				}
+				else
+				{
+					textPaint.setColor(Color.RED);
+					textPaint.setTextSize(33);
+					canvas.drawText("Life " + mLife, Constants.ScreenWidth - 150,
+							Constants.ScreenHeight - 35, textPaint);
+				}
 				mHolder.unlockCanvasAndPost(canvas);
 				Thread.sleep(5);
 
